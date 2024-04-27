@@ -6,7 +6,7 @@ load_dotenv()
 
 
 @dataclass
-class Credentials:
+class TwitterCredentials:
     CONSUMER_KEY = os.getenv("CONSUMER_KEY")
     CONSUMER_SECRET = os.getenv("CONSUMER_SECRET")
     ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")

@@ -1,6 +1,6 @@
 import pytest
 import requests_mock
-from app.services.credenciais import Credentials
+from app.services.credenciais import TwitterCredentials
 from app.services.twitter import Twitter
 
 
@@ -38,20 +38,18 @@ def resposta_tuite_criado(texto_do_tuite):
 @pytest.fixture
 def resposta_falha_criar_tuite():
     return {
-        "data": {
-            "title": "Unauthorized",
-            "type": "about:blank",
-            "status": 401,
-            "detail": "Unauthorized",
-        }
+        "title": "Unauthorized",
+        "type": "about:blank",
+        "status": 401,
+        "detail": "Unauthorized",
     }
 
 
 def test_leitura_credenciais_da_api():
-    assert Credentials.ACCESS_TOKEN
-    assert Credentials.ACCESS_TOKEN_SECRET
-    assert Credentials.CONSUMER_KEY
-    assert Credentials.CONSUMER_SECRET
+    assert TwitterCredentials.ACCESS_TOKEN
+    assert TwitterCredentials.ACCESS_TOKEN_SECRET
+    assert TwitterCredentials.CONSUMER_KEY
+    assert TwitterCredentials.CONSUMER_SECRET
 
 
 def test_tuite_criado_com_sucesso(twitter, resposta_tuite_criado, texto_do_tuite):
@@ -59,7 +57,7 @@ def test_tuite_criado_com_sucesso(twitter, resposta_tuite_criado, texto_do_tuite
         mocker.post(twitter.API_ENDPOINT, json=resposta_tuite_criado, status_code=201)
         resposta = twitter.post_tuite(texto_do_tuite)
 
-        assert resposta["text"] == texto_do_tuite
+        assert resposta["data"]["text"] == texto_do_tuite
 
 
 def test_falha_criar_tuite(twitter, texto_do_tuite, resposta_falha_criar_tuite):

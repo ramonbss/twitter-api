@@ -1,5 +1,4 @@
 from requests_oauthlib import OAuth1Session
-from dataclasses import dataclass
 
 
 class Twitter:
@@ -25,4 +24,4 @@ class Twitter:
             print("Tuite feito com sucesso!")
         else:
             print(f"Falha ao postar tuite: {response.status_code} - {response.text}")
-        return response.json().get("data")
+        return response.json()
