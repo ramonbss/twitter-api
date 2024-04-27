@@ -1,7 +1,7 @@
 import pytest
 import requests_mock
-from classes.credenciais import Credentials
-from twitter import Twitter
+from app.services.credenciais import Credentials
+from app.services.twitter import Twitter
 
 
 @pytest.fixture
